@@ -7,7 +7,8 @@ Prototype Refactor
 2. Your goal is to refactor all of this code to use ES6 Classes. The console.log() statements should still return what is expected of them.
 
 */
-function GameObject(Obj) {
+/* 
+ function GameObject(Obj) {
     this.createdAt = Obj.createdAt;
     this.name = Obj.name;
     this.dimensions = Obj.dimensions;
@@ -16,8 +17,23 @@ function GameObject(Obj) {
   GameObject.prototype.destroy = function () {
     return `${this.name} was removed from the game.`;
   };
+  */
 
-  
+  class GameObject {
+      constructor(Obj) {
+        this.createdAt = Obj.createdAt;
+        this.name = Obj.name;
+        this.dimensions = Obj.dimensions; 
+      }
+      destroy = function () {
+        return `${this.name} was removed from the game.`;
+      }
+
+  };
+
+
+
+ /* 
   function CharacterStats(attr) {
     GameObject.call(this, attr);
     this.healthPoints = attr.healthPoints;
@@ -27,6 +43,21 @@ function GameObject(Obj) {
     return `${this.name} took damage`;
   }
 
+  */
+
+  class CharacterStats extends GameObject {
+      constructor(attr) {
+      super(attr);
+      this.healthPoints = attr.healthPoints;
+      }
+
+      takeDamage = function () {
+        return `${this.name} took damage`;
+      }
+  };
+
+
+/*
   function Humanoid(character) {
     this.team = character.team;
     this.weapons = character.weapons;
@@ -36,6 +67,20 @@ function GameObject(Obj) {
   Humanoid.prototype = Object.create(CharacterStats.prototype);
   Humanoid.prototype.greet = function() {
    return `${this.name} offers greeting in ${this.language}`;
+  };
+*/
+
+  class Humanoid extends CharacterStats {
+      constructor(character) {
+          super(character);
+          this.team = character.team;
+          this.weapons = character.weapons;
+          this.language = character.language;
+      }
+      
+      greet = function() {
+        return `${this.name} offers greeting in ${this.language}`;
+       }
   };
   
    
